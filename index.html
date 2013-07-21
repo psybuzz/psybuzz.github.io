@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery.min.js"></script>
+	</head>
+
+	<body id="brandy" style="margin:0">
+		<script>
+			var inception = function(mark)
+			{
+				var count = 0;
+				var a = Math.random();
+				console.log(a);
+
+				modulo = new Array();
+				var noori;
+
+				//vertical // horizontal
+				if (a < 0.5)
+				{
+					noori = document.createElement('div');
+					$(noori).css('background-color','rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')');
+					$(noori).css('position','absolute');
+					$(noori).css('width', window.innerWidth);
+					$(noori).css('height',Math.floor(Math.random()*window.innerHeight));
+					$(noori).attr('id', 'd'+levels);
+
+					//top or bottom / left or right
+					if (Math.random() > 0.5)
+						$(noori).css('top', 0);
+					else
+						$(noori).css('bottom', 0);
+
+					//(Math.random() > 0.5)? $(noori).css('left',Math.floor(Math.random()*window.innerWidth)) : $(noori).css('right',Math.floor(Math.random()*window.innerWidth));
+				} else {
+					noori = document.createElement('div');
+					$(noori).css('background-color','rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')');
+					$(noori).css('position','absolute');
+					$(noori).css('width',Math.floor(Math.random()*window.innerWidth));
+					$(noori).css('height', window.innerHeight);
+					$(noori).attr('id', 'd'+levels);
+
+					
+					//top or bottom / left or right
+					//(Math.random() > 0.5)? $(noori).css('top',Math.floor(Math.random()*window.innerWidth)) : $(noori).css('bottom',Math.floor(Math.random()*window.innerWidth));
+
+					if (Math.random() > 0.5)
+						$(noori).css('left', 0);
+					else
+						$(noori).css('right', 0);
+				}
+
+				//add noori to the mark
+				$('#'+mark).append(noori);
+				console.log("added new element to: " + mark);
+				levels++;
+
+				//inception
+				var dream;
+				var depth = Math.floor(Math.random()*$('#'+mark).children.length);
+				if (Math.random() > lower)
+				{
+					console.log(mark);
+					inception(mark);
+				}
+				for (var i=0; i<$('#'+mark).children().length; i++)
+				{
+					child = $('#'+mark).children()[i];
+					if (Math.random() > upper && !$(child).is("script"))
+					{
+						console.log("mark: " + mark + " has child: : " + $(child).attr('id'));
+						inception($(child).attr('id'));
+					}
+				}
+			}
+
+			var levels = 0;
+			var lower = 0.5;
+			var upper = 0.9;
+
+
+			inception('brandy');
+			
+			
+
+			
+		</script>
+	</body>
+</html>
