@@ -1,10 +1,34 @@
 <html>
 	<head>
 		<script src="http://code.jquery.com/jquery.min.js"></script>
+		<style>
+			body{
+				margin: 0;
+				overflow: hidden;
+			}
+			a{
+				text-decoration: none;
+				color: black;
+				font-size: 57px;
+			}
+			div{
+				z-index: 2013;
+				margin: 0 auto;
+				position: fixed;
+				width: 100%;
+				text-align: center;
+				top: 47%;
+				font-family: Helvetica;
+			}
+		</style>
 	</head>
 
-	<body id="brandy" style="margin:0">
+	<body id="brandy">
+		<div id="nameplate"><a href="mailto:psybuzz@gmail.com">contact me.</a></div>
+
 		<script>
+			var noodles = [];
+
 			var inception = function(mark)
 			{
 				var count = 0;
@@ -50,7 +74,9 @@
 				}
 
 				//add noori to the mark
-				$('#'+mark).append(noori);
+				// $('#'+mark).prepend(noori);
+				$('#nameplate', '#'+mark).before(noori);
+				noodles.push(noori);
 				console.log("added new element to: " + mark);
 				levels++;
 
@@ -80,7 +106,42 @@
 
 			inception('brandy');
 			
-			
+			//activate all noodles
+			var randomness = 100;
+			var chaos = 10;
+			var decay = 0.95;
+			$(document).keyup(function(e){
+				if (e.keyCode == 32){
+					shift();
+				}
+			});
+			//auto-shift
+			var a = setInterval(shift, 3000);
+
+
+			function shift(){
+				$.each(noodles, function(i, item){
+					var speed = Math.random()*300+500;
+					randomness += chaos;
+					chaos *= decay;
+
+					if ($(item).css('top') != 'auto'){
+						$(item).animate({ top: '+='+(Math.random()*randomness-(randomness/2)) }, speed);
+					}
+					if ($(item).css('bottom') != 'auto'){
+						$(item).animate({ bottom: '+='+(Math.random()*randomness-(randomness/2)) }, speed);	
+					}
+					if ($(item).css('left') != 'auto'){
+						$(item).animate({ left: '+='+(Math.random()*randomness-(randomness/2)) }, speed);
+					}
+					if ($(item).css('right') != 'auto'){
+						$(item).animate({ right: '+='+(Math.random()*randomness-(randomness/2)) }, speed);
+					}
+					$(item).animate({
+						opacity: Math.random()*0.5+0.5
+					});
+				});
+			}
 
 			
 		</script>
